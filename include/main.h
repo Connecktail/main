@@ -1,24 +1,19 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <cjson/cJSON.h>
+#include <db-utils/dbutils.h>
+
 #include "server.h"
-
-/**
- * @brief Thread function for incoming connections
- * @param arg non used
- */
-void *server_socket(void *arg);
-
-/**
- * @brief Thread function for the client socket
- * @param arg socket file descriptor
- */
-void *client_handler(void *arg);
-
-/**
- * @brief Add a module to the database
- * @param root JSON object : payload of the packet
- */
-void add_module(cJSON *root);
+#include "pair.h"
 
 #endif
