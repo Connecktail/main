@@ -88,3 +88,19 @@ void add_client(int sd, ip_address_t ip_address)
 ```c
 void remove_client(ip_address_t ip_address)
 ```
+
+- Function to send the response of the pairing process to the client :
+
+```c
+void pair_response(int sd, ip_address_t ip_address)
+```
+
+### Bottle taken
+
+- Function to move on to the next step of the order (when the bottle has been taken) :
+
+> TODO: add the function
+
+```c
+void bottle_taken()
+```

@@ -10,9 +10,8 @@ void add_module(int sd, cJSON *root)
     module_t module;
 
     strcpy(ip_address, cJSON_GetObjectItem(root, "ip_address")->valuestring);
-    char *id_string = cJSON_GetObjectItem(root, "id")->valuestring;
-    long long int id = strtol(id_string, NULL, 16);
-    module.id = &id;
+    char *mac_address = cJSON_GetObjectItem(root, "mac_address")->valuestring;
+    strcpy(module.mac_address, mac_address);
     strcpy(module.ip_address, ip_address);
 
     _print_module(&module);
@@ -48,4 +47,13 @@ void remove_client(ip_address_t ip_address)
             break;
         }
     }
+}
+
+void pair_response(int sd, ip_address_t ip_address)
+{
+    char *buffer = (char *)malloc(6 * sizeof(char));
+    sprintf(buffer, "*2 OK");
+    send(sd, buffer, strlen(buffer), 0);
+    printf("Client %s paired\n", ip_address);
+    free(buffer);
 }

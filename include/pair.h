@@ -24,4 +24,11 @@ void add_client(int sd, ip_address_t ip_address);
  */
 void remove_client(ip_address_t ip_address);
 
+/**
+ * @brief Send the response to client finalizing the pairing process
+ * @param sc socket file descriptor
+ * @param ip_address ip address of the client
+ */
+void pair_response(int sd, ip_address_t ip_address);
+
 #endif

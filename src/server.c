@@ -61,20 +61,36 @@ void *client_handler(void *arg)
     inet_ntop(AF_INET, &sock_info.sin_addr, ip_address, sizeof(ip_address));
 
     add_client(sd, ip_address);
-
-    read(sd, buffer, MAX_BUFF);
-    cJSON *json = cJSON_Parse(buffer);
-    cJSON *action = cJSON_GetObjectItem(json, "action");
-
-    printf("Client sent: %s\n", buffer);
-
-    if (strcmp(action->valuestring, "pair") == 0)
-    {
-        printf("action : pair\n");
-        add_module(sd, json);
-    }
-
     _print_clients();
+
+    while (1)
+    {
+        int nb = read(sd, buffer, MAX_BUFF);
+        cJSON *json = cJSON_Parse(buffer);
+        cJSON *action = cJSON_GetObjectItem(json, "action");
+
+        printf("Client sent: %s\n", buffer);
+
+        if (nb == 0)
+        {
+            printf("Client %s disconnected\n", ip_address);
+            remove_client(ip_address);
+            close(sd);
+            pthread_exit(NULL);
+        }
+
+        if (strcmp(action->valuestring, "pair") == 0)
+        {
+            printf("action : pair\n");
+            add_module(sd, json);
+            pair_response(sd, ip_address);
+        }
+        else if (strcmp(action->valuestring, "bottle_taken") == 0)
+        {
+            printf("action : bottle_taken\n");
+            bottle_taken();
+        }
+    }
 
     remove_client(ip_address);
     close(sd);
