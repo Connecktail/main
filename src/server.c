@@ -88,7 +88,7 @@ void *client_handler(void *arg)
         else if (strcmp(action->valuestring, "bottle_taken") == 0)
         {
             printf("action : bottle_taken\n");
-            bottle_taken();
+            // bottle_taken();
         }
     }
 
