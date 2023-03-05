@@ -15,5 +15,8 @@
 
 #include "server.h"
 #include "pair.h"
+#include "add_bottle.h"
+
+#define THREAD_NB 2
 
 #endif
