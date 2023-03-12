@@ -29,7 +29,7 @@ void *add_bottle(void *arg)
 
     while (1)
     {
-        receive_message(&msg, ADD_BOTTLE_TYPE);
+        receive_message(&msg, ADD_BOTTLE_TYPE, 0);
 
         strcpy(barcode, msg.message.scanner.barcode);
         sprintf(url, "%s%s.json", OPENFOODFACT_API_URL, barcode);

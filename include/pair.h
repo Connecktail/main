@@ -2,7 +2,7 @@
 #define PAIR_H
 
 #include <cjson/cJSON.h>
-#include <db-utils/dbutils.h>
+#include <db-utils/types.h>
 
 /**
  * @brief Add a module to the database
@@ -30,5 +30,12 @@ void remove_client(ip_address_t ip_address);
  * @param ip_address ip address of the client
  */
 void pair_response(int sd, ip_address_t ip_address);
+
+/**
+ * @brief Search a socket from the clients array
+ * @param ip_address ip address of the client
+ * @return socket_client_t
+ */
+socket_client_t search_bottle(ip_address_t ip_address);
 
 #endif

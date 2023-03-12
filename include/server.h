@@ -1,6 +1,10 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <db-utils/types.h>
+
 #define SERVER_PORT 5000
 #define MAX_PENDING_CONNECTIONS 5
 #define MAX_BUFF 1024
