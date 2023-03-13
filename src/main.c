@@ -1,4 +1,9 @@
+#include <db-utils/dbutils.h>
+#include <stdlib.h>
+#include <pthread.h>
 #include "../include/main.h"
+#include "../include/server.h"
+#include "../include/add_bottle.h"
 
 PGconn *conn;
 socket_client_t *clients; // need an array of file descriptors to com

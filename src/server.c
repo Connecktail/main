@@ -1,4 +1,15 @@
-#include "../include/main.h"
+#include <pthread.h>
+#include <db-utils/dbutils.h>
+#include <db-utils/types.h>
+#include <cjson/cJSON.h>
+#include <string.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+#include "../include/server.h"
+#include "../include/search_bottle.h"
+#include "../include/pair.h"
 
 extern int nb_clients;
 extern socket_client_t *clients;
@@ -12,6 +23,9 @@ void _print_clients()
 
 void *server_socket(void *arg)
 {
+    pthread_t th_listen_search_bottle;
+    pthread_create(&th_listen_search_bottle, NULL, listen_search_bottle, NULL);
+
     char buffer[MAX_BUFF];
     int sock, sd;
     struct sockaddr_in svc, clt;

@@ -1,4 +1,12 @@
-#include "../include/main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <db-utils/dbutils.h>
+#include <db-utils/types.h>
+#include <cjson/cJSON.h>
+#include "../include/server.h"
+#include "../include/pair.h"
 
 extern int nb_clients;
 extern socket_client_t *clients;
@@ -31,7 +39,6 @@ void add_client(int sd, ip_address_t ip_address)
     clients[nb_clients - 1] = client;
 }
 
-// TODO: need to deteck when a client socket is destroyed
 void remove_client(ip_address_t ip_address)
 {
     printf("Removing client %s\n", ip_address);
@@ -56,4 +63,20 @@ void pair_response(int sd, ip_address_t ip_address)
     send(sd, buffer, strlen(buffer), 0);
     printf("Client %s paired\n", ip_address);
     free(buffer);
+}
+
+socket_client_t search_bottle(ip_address_t ip_address)
+{
+    // TODO: add the client at the correct place (sorted by ip address) to search by dichotomy
+    socket_client_t client;
+    client.sd = -1;
+    for (int i = 0; i < nb_clients; i++)
+    {
+        if (strcmp(clients[i].ip_address, ip_address) == 0)
+        {
+            client = clients[i];
+            break;
+        }
+    }
+    return client;
 }
