@@ -1,6 +1,8 @@
 #ifndef PAIR_H
 #define PAIR_H
 
+#define PAIRING_TIME 30
+
 #include <cjson/cJSON.h>
 #include <db-utils/types.h>
 
