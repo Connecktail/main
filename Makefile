@@ -5,7 +5,7 @@ OBJECTS=objects
 BUILD=build
 SRC=src
 INCLUDE=include
-OBJECTS_FILES= $(OBJECTS)/main.o $(OBJECTS)/pair.o $(OBJECTS)/server.o $(OBJECTS)/add_bottle.o $(OBJECTS)/configure_curl.o $(OBJECTS)/search_bottle.o $(OBJECTS)/send_data_to_module.o $(OBJECTS)/signal_handler.o
+OBJECTS_FILES= $(OBJECTS)/main.o $(OBJECTS)/pair.o $(OBJECTS)/server.o $(OBJECTS)/add_bottle.o $(OBJECTS)/configure_curl.o $(OBJECTS)/search_bottle.o $(OBJECTS)/send_data_to_module.o $(OBJECTS)/signal_handler.o $(OBJECTS)/protocol.o
 
 all: $(BUILD)/main
 

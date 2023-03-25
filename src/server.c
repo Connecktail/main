@@ -13,6 +13,7 @@
 #include "../include/search_bottle.h"
 #include "../include/pair.h"
 #include "../include/signal_handler.h"
+#include "../include/protocol.h"
 
 extern int nb_clients;
 extern socket_client_t *clients;
@@ -90,7 +91,6 @@ void *client_handler(void *arg)
     int sd = socket_info.sd;
     struct sockaddr_in sock_info = socket_info.sock_info;
     ip_address_t ip_address;
-    char buffer[MAX_BUFF];
     inet_ntop(AF_INET, &sock_info.sin_addr, ip_address, sizeof(ip_address));
 
     add_client(sd, ip_address);
@@ -98,19 +98,19 @@ void *client_handler(void *arg)
 
     while (1)
     {
-        int nb = read(sd, buffer, MAX_BUFF);
-        cJSON *json = cJSON_Parse(buffer);
-        cJSON *action = cJSON_GetObjectItem(json, "action");
-
-        printf("Client sent: %s\n", buffer);
-
-        if (nb == 0)
+        int res = check_protocol(sd);
+        if (res == 0)
+            break;
+        else if (res == -1)
         {
             printf("Client %s disconnected\n", ip_address);
             remove_client(ip_address);
             close(sd);
             pthread_exit(NULL);
         }
+
+        cJSON *json = get_response_data(sd);
+        cJSON *action = cJSON_GetObjectItem(json, "action");
 
         if (strcmp(action->valuestring, "pair") == 0)
         {
