@@ -1,11 +1,11 @@
 FLAGS= -Wall
 CC= gcc
-LIBS= -lpq -ldb-utils -lpthread -lcjson -lmsq-utils -lcurl
+LIBS= -lpq -ldb-utils -lpthread -lcjson -lmsq-utils -lcurl -lshm-utils
 OBJECTS=objects
 BUILD=build
 SRC=src
 INCLUDE=include
-OBJECTS_FILES= $(OBJECTS)/main.o $(OBJECTS)/pair.o $(OBJECTS)/server.o $(OBJECTS)/add_bottle.o $(OBJECTS)/configure_curl.o $(OBJECTS)/search_bottle.o $(OBJECTS)/send_data_to_module.o $(OBJECTS)/signal_handler.o $(OBJECTS)/protocol.o
+OBJECTS_FILES= $(OBJECTS)/main.o $(OBJECTS)/pair.o $(OBJECTS)/server.o $(OBJECTS)/add_bottle.o $(OBJECTS)/configure_curl.o $(OBJECTS)/search_bottle.o $(OBJECTS)/send_data_to_module.o $(OBJECTS)/signal_handler.o $(OBJECTS)/protocol.o $(OBJECTS)/bottle_taken.o
 
 all: $(BUILD)/main
 

@@ -14,6 +14,7 @@
 #include "../include/pair.h"
 #include "../include/signal_handler.h"
 #include "../include/protocol.h"
+#include "../include/bottle_taken.h"
 
 extern int nb_clients;
 extern socket_client_t *clients;
@@ -122,7 +123,7 @@ void *client_handler(void *arg)
         else if (strcmp(action->valuestring, "bottle_taken") == 0)
         {
             printf("action : bottle_taken\n");
-            // bottle_taken();
+            bottle_taken();
         }
     }
 
