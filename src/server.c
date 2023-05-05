@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <semaphore.h>
+#include <shm-utils/shmutils.h>
 
 #include "../include/server.h"
 #include "../include/search_bottle.h"
@@ -71,6 +72,11 @@ void *server_socket(void *arg)
 
         cltLen = sizeof(clt);
         sd = accept(sock, (struct sockaddr *)&clt, &cltLen);
+
+        shm_t *shm = get_shm();
+        if (shm->device_handler_pid != 0)
+            kill(shm->device_handler_pid, SIGUSR1); // Notify the device handler that a client is connected
+
         getpeername(sd, (struct sockaddr *)&sock_info, &infoLen);
         printf("Connection from client %s on port %d\n", inet_ntop(AF_INET, &sock_info.sin_addr, buffer, sizeof(buffer)), ntohs(sock_info.sin_port));
 
