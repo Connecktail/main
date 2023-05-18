@@ -9,6 +9,6 @@ void send_enable_led(socket_client_t client)
 
 void send_enable_buzzer(socket_client_t client)
 {
-    char buffer[] = "*26 {\"action\":\"enable_buzzer\"}";
+    char buffer[] = "*26 {\"action\":\"enable_sound\"}";
     send(client.sd, buffer, 30, 0);
 }
