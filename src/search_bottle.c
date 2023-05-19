@@ -18,8 +18,6 @@ void *listen_search_bottle(void *arg)
     msq_msg_t msg_enable_led, msg_enable_buzzer;
     ssize_t size_enable_led_type, size_enable_buzzer_type;
     ip_address_t ip_address;
-    init_message_queue();
-    printf("message queue initialized\n");
     while (1)
     {
         do
