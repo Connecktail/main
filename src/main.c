@@ -14,6 +14,7 @@ PGconn *conn;
 socket_client_t *clients; // need an array of file descriptors to com
 int nb_clients = 0;
 int shmid;
+int msqid;
 
 int main()
 {

@@ -9,7 +9,7 @@
 #include "../include/pair.h"
 #include "../include/send_data_to_module.h"
 
-int msqid;
+extern int msqid;
 extern socket_client_t *clients;
 extern int nb_clients;
 
