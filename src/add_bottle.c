@@ -6,13 +6,15 @@
 #include <curl/curl.h>
 #include <msq-utils/msqutils.h>
 #include <msq-utils/msqtypes.h>
+#include <shm-utils/shmutils.h>
+#include <signal.h>
 #include <cjson/cJSON.h>
 #include <db-utils/dbutils.h>
 
 #include "../include/add_bottle.h"
 #include "../include/configure_curl.h"
 
-int msqid;
+extern int msqid;
 extern PGconn *conn;
 
 void *add_bottle(void *arg)
@@ -63,6 +65,9 @@ void *add_bottle(void *arg)
         printf("Inserting bottle in db...");
         insert_bottle(conn, &bottle);
         printf("done\n");
+        shm_t *shm = get_shm();
+        if (shm->device_handler_pid != 0)
+            kill(shm->device_handler_pid, SIGPOLL); // Notify the device handler that the bottle is added
     }
 
     curl_easy_cleanup(curl);
