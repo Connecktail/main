@@ -1,5 +1,6 @@
 #include <db-utils/dbutils.h>
 #include <shm-utils/shmutils.h>
+#include <msq-utils/msqutils.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -20,6 +21,7 @@ int main()
 {
     printf("PID : %d\n", getpid());
     shmid = init_shared_memory();
+    msqid = init_message_queue();
     change_main_pid(getpid());
     clients = (socket_client_t *)malloc(CLIENT_GAP * sizeof(socket_client_t));
 

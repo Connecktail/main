@@ -5,11 +5,13 @@ OBJECTS=objects
 BUILD=build
 SRC=src
 INCLUDE=include
-OBJECTS_FILES= $(OBJECTS)/main.o $(OBJECTS)/pair.o $(OBJECTS)/server.o $(OBJECTS)/add_bottle.o $(OBJECTS)/configure_curl.o $(OBJECTS)/search_bottle.o $(OBJECTS)/send_data_to_module.o $(OBJECTS)/signal_handler.o $(OBJECTS)/protocol.o $(OBJECTS)/bottle_taken.o
+OBJECTS_FILES= main.o pair.o server.o add_bottle.o configure_curl.o search_bottle.o send_data_to_module.o signal_handler.o protocol.o bottle_taken.o set_battery.o
+OBJS=$(addprefix $(OBJECTS)/, $(OBJECTS_FILES))
+
 
 all: $(BUILD)/main
 
-$(BUILD)/main: $(OBJECTS_FILES)
+$(BUILD)/main: $(OBJS)
 	$(CC) $(FLAGS) -o $(BUILD)/main $^  $(LIBS)
 
 $(OBJECTS)/%.o: $(SRC)/%.c $(INCLUDE)/*.h

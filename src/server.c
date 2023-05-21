@@ -16,6 +16,7 @@
 #include "../include/signal_handler.h"
 #include "../include/protocol.h"
 #include "../include/bottle_taken.h"
+#include "../include/set_battery.h"
 
 extern int nb_clients;
 extern socket_client_t *clients;
@@ -98,6 +99,7 @@ void *client_handler(void *arg)
     int sd = socket_info.sd;
     struct sockaddr_in sock_info = socket_info.sock_info;
     ip_address_t ip_address;
+    mac_address_t mac_address;
     inet_ntop(AF_INET, &sock_info.sin_addr, ip_address, sizeof(ip_address));
 
     add_client(sd, ip_address);
@@ -122,6 +124,7 @@ void *client_handler(void *arg)
         if (strcmp(action->valuestring, "pair") == 0)
         {
             printf("action : pair\n");
+            strcpy(mac_address, cJSON_GetObjectItem(json, "mac_address")->valuestring);
             add_module(sd, json);
             pair_response(sd, ip_address);
             close(sock);
@@ -130,6 +133,11 @@ void *client_handler(void *arg)
         {
             printf("action : bottle_taken\n");
             bottle_taken();
+        }
+        else if (strcmp(action->valuestring, "set_battery") == 0)
+        {
+            printf("action : set_battery\n");
+            set_battery(json, ip_address, mac_address);
         }
     }
 

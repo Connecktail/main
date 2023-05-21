@@ -26,7 +26,6 @@ void *add_bottle(void *arg)
     char url[MAX_LENGTH_BARCODE + strlen(OPENFOODFACT_API_URL)];
     char barcode[MAX_LENGTH_BARCODE];
 
-    msqid = init_message_queue();
     CURL *curl = configure_curl(&data);
 
     while (1)
